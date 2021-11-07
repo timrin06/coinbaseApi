@@ -3,7 +3,7 @@ import asyncio
 import json
 import time
 import datetime
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 from coinbase.wallet.client import Client
 
