@@ -29,7 +29,7 @@ while True:
     ydata.append(float(priceSpot.amount))
             
     if len(ydata) > i:
-        list_ma = ydata[len(ydata)-i1:len(ydata)-1]
+        list_ma = ydata[len(ydata)-i:len(ydata)-1]
         ydata_ma.append(float(sum(list_ma)) / max(len(list_ma), 1))
         if ydata[len(ydata)-1] > ydata_ma[len(ydata_ma)-1] and bank['status'] == False:    
             bank['status'] = True
