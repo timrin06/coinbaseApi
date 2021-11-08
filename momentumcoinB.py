@@ -22,11 +22,11 @@ while True:
     ydata = db['ydata']
     ydata_ma = db['ydata_ma']
         
-    priceSell = client.get_sell_price(currency=currency_code)
+    #priceSell = client.get_sell_price(currency=currency_code)
     priceSpot = client.get_sell_price(currency=currency_code)
     print(float(priceSpot.amount))
 
-    ydata.append(float(priceSell.amount))
+    ydata.append(float(priceSpot.amount))
             
     if len(ydata) > i:
         list_ma = ydata[len(ydata)-i1:len(ydata)-1]
