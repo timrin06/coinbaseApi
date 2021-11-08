@@ -3,7 +3,6 @@ import asyncio
 import json
 import time
 import datetime
-#import matplotlib.pyplot as plt
 import numpy as np
 from coinbase.wallet.client import Client
 
@@ -16,21 +15,22 @@ ydata = []
 xdata_ma = []
 ydata_ma = []
 
-xdata_ma1 = []
-ydata_ma1 = []
-
-xdata_ma2 = []
-ydata_ma2 = []
-
 bank = {
     'cash' : 100000,
     'coin' : 0,
     'status' : False
 }
 
-i1 = int(input('i1 = '))
+i = int(input('i = '))
 
-while True:    
+while True:
+    with open('db.json', 'r+') as f:
+        db = json.load(f)
+    xdata = db['xdata']
+    ydata = db['ydata']
+    xdata_ma = db['xdata_ma']
+    ydata_ma = db['ydata_ma']
+        
     priceSell = client.get_sell_price(currency=currency_code)
     priceSpot = client.get_sell_price(currency=currency_code)
     print(float(priceSpot.amount))
@@ -38,7 +38,7 @@ while True:
     xdata.append(datetime.datetime.now())
     ydata.append(float(priceSell.amount))
             
-    if len(xdata) > i1:
+    if len(xdata) > i:
         list_ma = ydata[len(ydata)-i1:len(ydata)-1]
         ydata_ma.append(float(sum(list_ma)) / max(len(list_ma), 1))
         xdata_ma.append(xdata[len(xdata)-1])                
@@ -53,4 +53,7 @@ while True:
             bank['coin'] = 0
             print('sell' + '||' + str(bank['cash']) + '||' + str(bank['coin']))
     print(bank)
+    with open('db.json', 'w') as f:
+            f.write(json.dumps(db))
+            
     time.sleep(60)
